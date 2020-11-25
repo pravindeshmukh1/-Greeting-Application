@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+      crossorigin="anonymous"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+      integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ"
+      crossorigin="anonymous"
+    />
+
+    <title>Greeting Application</title>
+<body onload="getAllGreeting()" >
+  <div class="wrapper">
+    <div class="sidebar shadow bg-white ">
+     <ul>
+       <li>
+         <label class="fa fa-list list-greeting list-nav" >
+          <span  data-toggle="tooltip" title="List" onclick=" getAllGreeting()">List</span>
+         </label>
+       </li>
+
+       <li> <label class="fa fa-plus-square add-greeting list-nav">
+        <span title="Add" data-toggle="modal" data-target="#addModalCenter">Add</span>  
+       </label>
+       </li>
+
+       <li>
+          <label class="fa fa-edit edit-greeting list-nav" >
+          <span  title="Edit" data-toggle="modal" data-target="#editModalCenter">Edit</span></label>
+       </li>
+       
+       <li>
+         <label for="" class="fa fa-trash list-nav">
+          <span  title="Delete">Delete</span>
+         </label>
+       </li>
+     </ul>
+    </div>
+  </div>
+  <div class="navbar navbar-expand-sm shadow bg-white">
+    <span class="navbar-brand col col-xl-4 "  data-toggle="tooltip" title="Greeting App">Greetings App</span>
+      <ul class="navbar-nav offset-xl-5">
+            <li class="nav-item dropdown">
+              <span class="nav-link"><i class="fa fa-bell" data-toggle="tooltip" title="Notification"></i></span> 
+            </li>
+            <li class="nav-item dropdown">
+              <span class="nav-link dropdow-toggle"><i class="fa fa-envelope" data-toggle="tooltip" title="Notification"></i></span>
+            </li>
+            <li class="nav-item">
+              <span class="nav-link"><i class="fa fa-question-circle" data-toggle="tooltip" title="Support"></i>Support</span>
+            </li>
+            <li class="nav-item">
+              <span class="nav-link"><i class="fas fa-tools fa-1x" data-toggle="tooltip" title="Tools"></i>Tools</span>
+            </li>
+      </ul>
+            <button class="btn btn-sm" data-toggle="tooltip" title="Sign In" onclick="getAllGreeting()">SignIn</button>
+            <button class="btn btn-sm btn-success" data-toggle="tooltip" title="Sign Up">SignUp</button>
+  </div>
+  <div class="titleCards">
+    <h4 >Greeting Cards</h4>
+  </div>
+ 
+
+<!-- Modal -->
+<div class="modal fade add-greeting" id="addModalCenter" tabindex="-1" role="dialog" aria-labelledby="addModalCenterTitle" aria-hidden="true" data-backdrop="static">
+  
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addModalCenterTitle">Add New Greeting</h5>
+          <button class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form class="add-form">
+          <div class="form-group">
+            <label for="firstName">First Name</label>
+            <input type="text" class="form-control firstName" placeholder="Enter first name" required name="firstName" > 
+            <div class="input-valid fa fa-asterisk d-none" id="first-name">Invalid - First Name must contain 3 characters and not a Number.</div>
+          </div>
+          <div class="form-group">
+            <label for="lastName">Last Name</label>
+            <input  type="text" class="form-control lastName" placeholder="Enter last name" required name="lastName">
+            <div class="input-valid fa fa-asterisk d-none" id="last-name">Invalid - Last Name must contain 3 characters and not a Number</div>
+
+          </div>
+          <div class="form-group">
+            <label for="greetingMessage" class="col-form-label" >Gretting Message</label>
+            <textarea type="text" class="form-control greeting" placeholder="Greeting..." required name="greeting"></textarea>
+            <div class="input-valid fa fa-asterisk d-none" id="greeting-message">Invalid - message must contain 3 characters.</div>
+
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button  class="btn btn-primary" onclick="addGreeting()">Save</button>
+        <button class="btn btn-secondary" data-dismiss="modal" >Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <div class="display-card row  offset-xl-2"></div>;
+ 
+  <div class="modal fade edit-greeting" id="editModalCenter" tabindex="-1" role="dialog" aria-labelledby="editModalCenterTitle" aria-hidden="true" data-backdrop="static">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editModalCenterTitle">Edit Greeting</h5>
+            <button class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form class="edit-form">
+            <div class="form-group">
+              <label for="firstName">First Name</label>
+              <input type="text" class=" editfirstName form-control" placeholder="Enter first name" required name="firstName"> 
+              <div class="input-valid fa fa-asterisk d-none" id="edit-first-name">Invalid - First Name must contain 3 characters and not a Number.</div>
+
+            </div>
+            <div class="form-group">
+              <label for="lastName">Last Name</label>
+              <input type="text" class="editlastName form-control" placeholder="Enter last name" required name="lastName">
+              <div class="input-valid fa fa-asterisk d-none" id="edit-last-name">Invalid - Last Name must contain 3 characters and not a Number</div>
+
+            </div>
+            <div class="form-group">
+              <label for="greetingMessage" class="col-form-label" placeholder="Greeting..." required name="greeting" >Greeting Message</label>
+              <textarea  type="text" class="editgreetingmessage form-control" ></textarea>
+              <div class="input-valid fa fa-asterisk d-none" id="edit-greeting-message">Invalid - message must contain 3 characters.</div>
+
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-primary" onclick="editGreeting()">Save</button>
+          <button class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+</div>
+
+<div class="modal delete-form showdow" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Delete Greeting Card</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true" onclick="cancleDeleteGreetingCard()">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id='delete-message'>
+        <p>Are you sure you want to delete this greeting card</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" onclick="deleteGreeting()">Confirm</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="cancleDeleteGreetingCard()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div id="snackbar">Success deleted</div>
+
+<script
+      src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+      crossorigin="anonymous">
+ </script>
+<script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+      integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+      crossorigin="anonymous">
+</script>
+  <script src="./app.js"></script>
+</body>
+</html>
